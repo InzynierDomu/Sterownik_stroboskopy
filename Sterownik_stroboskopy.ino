@@ -1,84 +1,77 @@
-#define potPin1 A0
-#define potPin2 A1
-#define potPin3 A2
-#define potPin4 A3
+#define POT1_PIN A0
+#define POT2_PIN A1
+#define POT3_PIN A2
+#define POT4_PIN A3
+#define OSC1_PIN 5
+#define OSC2_PIN 6
 
-int measurePot1 = 0;  //T11
-int measurePot2 = 0;  //T12
-int measurePot3 = 0;  //T21
-int measurePot4 = 0;  //T22
+int MeasurePot1 = 0;  //T11
+int MeasurePot2 = 0;  //T12
+int MeasurePot3 = 0;  //T21
+int MeasurePot4 = 0;  //T22
 
-int counterT11 = 0;
-int counterT12 = 0;
-int counterT21 = 0;
-int counterT22 = 0;
+int CounterT11 = 0;  
+int CounterT12 = 0;
+int CounterT21 = 0;
+int CounterT22 = 0;
 
-bool osc1 = false;
-bool osc2 = false;
+bool Oscillator1High = false;
+bool Oscillator2High = false;
 
 void setup() {
- 
-  pinMode(5, OUTPUT);
-  pinMode(6, OUTPUT);
-  pinMode(7, OUTPUT);
-  pinMode(8, OUTPUT);
-
-  digitalWrite(5, LOW);  
-  digitalWrite(6, LOW);  
-  digitalWrite(7, LOW);  
-  digitalWrite(8, LOW); 
+  pinMode(OSC1_PIN, OUTPUT);
+  pinMode(OSC2_PIN, OUTPUT);
+  digitalWrite(OSC1_PIN, LOW);  
+  digitalWrite(OSC2_PIN, LOW);  
 }
 
 void loop() {
-
   Measurement();
 
-  if (osc1)
+  if (Oscillator1High)
   {
-    counterT11 ++;
+    CounterT11++;
   }else{
-    counterT12 ++;    
+    CounterT12++;    
   }
 
-  if (counterT11 >= measurePot1)
+  if (CounterT11 >= MeasurePot1)
   {
-    digitalWrite(5, LOW);
-    digitalWrite(7, HIGH);
-    osc1 = !osc1;
-    counterT11 = 0;
+    digitalWrite(OSC1_PIN, LOW);
+    Oscillator1High = !Oscillator1High;
+    CounterT11 = 0;
   }
-  else if(counterT12 >= measurePot2)
+  else if(CounterT12 >= MeasurePot2)
   {
-    digitalWrite(5, HIGH); 
-    digitalWrite(7, LOW);  
-    osc1 = !osc1;
-    counterT12 = 0;
-  }else
+    digitalWrite(OSC1_PIN, HIGH); 
+    Oscillator1High = !Oscillator1High;
+    CounterT12 = 0;
+  }
+  else
   {
     
   }
 
-  if (osc2)
+  if (Oscillator2High)
   {
-    counterT21 ++;
+    CounterT21++;
   }else{
-    counterT22 ++;    
+    CounterT22++;    
   }
 
-  if (counterT21 >= measurePot3)
+  if (CounterT21 >= MeasurePot3)
   {
-    digitalWrite(6, LOW);
-    digitalWrite(8, HIGH);
-    osc2 = !osc2;
-    counterT21 = 0;
+    digitalWrite(OSC2_PIN, LOW);
+    Oscillator2High = !Oscillator2High;
+    CounterT21 = 0;
   }
-  else if(counterT22 >= measurePot4)
+  else if(CounterT22 >= MeasurePot4)
   {
-    digitalWrite(6, HIGH);   
-    digitalWrite(8, LOW);
-    osc2 = !osc2;
-    counterT22 = 0;
-  }else
+    digitalWrite(OSC2_PIN, HIGH);   
+    Oscillator2High = !Oscillator2High;
+    CounterT22 = 0;
+  }
+  else
   {
     
   }
@@ -88,8 +81,8 @@ void loop() {
 
 void Measurement()
 {
-  measurePot1 = (analogRead(potPin1) / 2) + 2;
-  measurePot2 = analogRead(potPin2) / 2;
-  measurePot3 = (analogRead(potPin3) / 2) + 2;
-  measurePot4 = analogRead(potPin4) / 2;
+  MeasurePot1 = (analogRead(POT1_PIN) / 2) + 2;
+  MeasurePot2 = analogRead(POT2_PIN) / 2;
+  MeasurePot3 = (analogRead(POT3_PIN) / 2) + 2;
+  MeasurePot4 = analogRead(POT4_PIN) / 2;
 }
